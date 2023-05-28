@@ -1,0 +1,9 @@
+FRONT-END SET-UP:
+1) install: pip install streamlit--> (streamlit run home.py) for running the application
+2) install: pip install mysql-connector-python --> (for installing mysql connector in python)
+3) install: pip install pymysql ---> (for installing pymysql in python)
+4) open: config.py (update it with your own SQL HOST, USER, PASSWORD credentials to set up the connection)
+5) use the file named 'database.sql' (run this script to create the restaurant_app database, and users table in mySQL Workbench)
+
+
+
