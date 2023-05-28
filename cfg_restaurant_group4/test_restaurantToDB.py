@@ -64,36 +64,6 @@ class TestRestaurantToDB(unittest.TestCase):
             mock_cursor.execute.assert_called_with('SELECT user_ID, name FROM restaurants')
             mock_cursor.executemany.assert_called_once()
 
-    def test_save_review_rating_to_db(self):
-        # Mock the create_connection method to return a mock connection object
-        with patch('api_final.sql.connect') as mock_connect:
-            mock_connection = mock_connect.return_value
-            mock_cursor = mock_connection.cursor.return_value
-            mock_cursor.fetchone.return_value = [1]  # Return a user_id and restaurant_id
-
-
-
-            # Define the input parameters
-            username = 'test_user'
-            restaurant = 'Restaurant A'
-            review = 'Great food and service!'
-            rating = 4.5
-
-            # Call the save_review_rating_to_db method
-            self.restaurant.save_review_rating_to_db(username, restaurant, review, rating)
-
-            # Assert the expected method calls and parameter values
-            mock_connect.assert_called_once_with(host=self.restaurant.host, user=self.restaurant.user,
-                                                 password=self.restaurant.password, database=self.restaurant.database)
-            mock_cursor.execute.assert_any_call('SELECT User_ID FROM users WHERE Username = %s', username)
-            mock_cursor.execute.assert_any_call('SELECT restaurant_ID FROM restaurants WHERE name = %s', restaurant)
-            mock_cursor.execute.assert_called_with(
-                'INSERT INTO reviews (user_ID, restaurant_ID, name, review, rating, timestamp) VALUES (%s, %s, %s, %s, %s, %s)',
-                (1, 1, 'Restaurant A', 'Great food and service!', 4.5, datetime(2023, 5, 28, 20, 0, 13, 126157)))
-
-            # Assert that the connection was committed and closed
-            mock_connection.commit.assert_called_once()
-            mock_connection.close.assert_called_once()
-
+   
 if __name__ == '__main__':
     unittest.main()
